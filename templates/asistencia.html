@@ -1,0 +1,66 @@
+{% extends "index.html" %}
+{% block title %}Asistencia{% endblock %}
+{% block content %}
+  <div class="conteiner-fluid text-center">
+    <form method="POST" action="{{ request.path }}">
+      {% if cursos %}
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="fecha" class="col-form-label">Fecha</label>
+          </div>
+          <div class="col-auto">
+            <input type="date" name="fecha" id="fecha" class="form-control" aria-labelledby="passwordHelpInline">
+          </div>
+        </div>
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="clase" class="col-form-label">Clase</label>
+            <select class="form-control bg-light" id="clase"name="clase">
+              <option value="1">Aula</option>
+              <option value="2">Educación Física</option>
+            </select>
+          </div>
+        </div>
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="cursos" class="col-form-label">Clase</label>
+            <select class="form-control bg-light" id="cursos" name="cursos">
+              {% for curso in cursos %}
+                <option value="{{ curso.id }}">{{ curso.anio }} - {{ curso.division }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      {% else %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Apellido</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Asistencia</th>
+              <th scope="col">Justificacion</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for estudiante in curso.estudiantes %}
+              <tr>
+                <th>{{ estudiante.apellido }}</th>
+                <td>{{ estudiante.nombre }}</td>
+                <td>
+                  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="asistencia">
+                    <option value="n">Faltó</option>
+                    <option value="s">Presente</option>
+                  </select>
+                </td>
+                <td>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" name="justificacion"rows="1"></textarea>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+      <input type="submit" value = "Buscar asistencia curso" style="margin: 2rem;">
+    </form>
+  </div>
+{% endblock %}

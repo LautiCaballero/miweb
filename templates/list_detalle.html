@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+{% block title %}Listado detallado{% endblock %}
+{% block content %}
+  <h1>Listado detallado de asistencia</h1>
+  <hr>
+  <form action="{{ request.path }}" method = "POST" class = "container-fluid">
+
+    {% if cursos  :%}
+      <label for="curso_id">Cursos</label> <br>
+      <select name="curso_id" id="curso_id" width = "500px">
+      {% for curso in cursos %}
+          <option value="{{ curso.id }}">{{ curso.anio }} - {{ curso.division }}</option>
+      {% endfor %}
+      </select>
+
+      <br><br>
+
+      <input type="submit" value = "Buscar asistencia curso">
+    {% else %}
+      <div class="conteiner-fluid">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Alumno</th>
+                <th scope="col">Clases de Aula Pres</th>
+                <th scope="col">Clases de Aula Jus</th>
+                <th scope="col">Clases de Aula InJus</th>
+                <th scope="col">Clases EF Pres</th>
+                <th scope="col">Clases EF Jus</th>
+                <th scope="col">Clases EF InJus</th>
+                <th scope="col">Total Inasistencias</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for e in lista %}
+                <tr>
+                  <th scope = "row">{{ e['apellido'] }} {{ e['nombre']}}</th>
+                  <td>{{ e['aulaP'] }}</td>
+                  <td>{{ e['aulaJ']}}</td>
+                  <td>{{ e['aulaI']}}</td>
+                  <td>{{ e['efP']}}</td>
+                  <td>{{ e['efJ']}}</td>
+                  <td>{{ e['efI']}}</td>
+                  <td>{{ e['total']}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    {% endif %}
+    
+  </form>
+{% endblock %}

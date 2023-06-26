@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+{% block title %}Listado detallado{% endblock %}
+{% block content %}
+  <h1>Listado de inasistencias</h1>
+  <hr>
+  <form action="{{ request.path }}" method = "POST" class = "container-fluid">
+    
+    {% if estudiantes :%}
+      <label for="dni">DNI</label> <br>
+      <input name="dni" id="dni">
+        <br><br>
+  
+        <input type="submit" value = "Buscar DNI">
+    {% else: %}
+      <h3>Inasistencias del alumno {{ estudiante.apellido }} {{ estudiante.nombre }}:</h3>
+      <div class="conteiner-fluid">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Tipo de clase</th>
+                <th scope="col">Justificacion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for e in lista %}
+                <tr>
+                  <td>{{ e['fecha'] }}</td>
+                  <td>{{ e['tipo'] }}</td>
+                  <td>{{ e['justificacion'] }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    {% endif %}
+  </form>
+
+
+{% endblock %}
